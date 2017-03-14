@@ -1,0 +1,21 @@
+<form  (ngSubmit)="onSubmit()" [formGroup]="parselForm" novalidate action="" method="post"   >
+
+
+    <label>Length (mm)</label>
+    <input type="number" formControlName="p_length" >
+    <label>Breadth (mm)</label>
+    <input type="number" formControlName="p_breadth" >
+    <label>Height (mm)</label>
+    <input type="number" formControlName="p_height" >
+    <label>Weight (kg)</label>
+    <input type="number" formControlName="p_weight" >
+    <button type="submit" [disabled]='!parselForm.valid'  >Submit</button>
+        <br>
+    <p>Form value: {{ parselForm.value | json }}</p>
+    <p>Form status: {{ parselForm.valid | json }}</p>
+
+    <p *ngIf="freightInfo">{{freightInfo.msg}} - {{freightInfo.cost}}</p>
+
+
+
+</form>
