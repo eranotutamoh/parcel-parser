@@ -10,14 +10,14 @@ export class FreightCalculator {
     calculator(parcel: Parcel) : Object {
         const userParcel  = [parcel.length, parcel.breadth, parcel.height];
 
-        if(!this.weightUnderLimit(parcel.weight))  return {freightable: false, msg: 'Parcel is OVERWEIGHT', cost : null}  // Offer OVERWEIGHT service here
+        if(!this.weightUnderLimit(parcel.weight))  return {msg: 'Parcel is OVERWEIGHT'}  // Offer OVERWEIGHT service here
 
         const packagesize = this.packageSizes.find(pkg => {
             const limits = [pkg.parcel.length, pkg.parcel.breadth, pkg.parcel.height]
             return this.findSize(userParcel,limits);
         })
 
-        return (packagesize) ?  {freightable: true, msg: `${packagesize.size} parcel`, cost : packagesize.cost}  : {freightable: false, msg: 'Parcel is TOO LARGE', cost : null}
+        return (packagesize) ?  {msg: `${packagesize.size} parcel`, cost : packagesize.cost}  : {msg: 'Parcel is TOO LARGE'}
     }
 
     private weightUnderLimit(weight:number) :boolean {
