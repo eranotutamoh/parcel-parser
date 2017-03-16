@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn }   from '@angular/forms';
 import { Parcel } from '../models/Parcel'
 import { FreightCalculator } from '../services/freightCalculator';
-import { NG_VALIDATORS } from '@angular/forms';
+
 
 
 @Component({
@@ -12,7 +12,7 @@ import { NG_VALIDATORS } from '@angular/forms';
 export class ParserComponent {
 
     parselForm: FormGroup
-    title = 'Enter Parcel Dimensions and Weigth'
+    title = 'Enter Parcel Dimensions and Weight'
     freightInfo: Object
 
     constructor(private freight: FreightCalculator , private formBr: FormBuilder) {
@@ -22,9 +22,9 @@ export class ParserComponent {
     createForm(): void {
         this.parselForm = this.formBr.group({
             p_length: ['', [Validators.required, this.numberValidator()] ],
-            p_breadth: ['', Validators.required ],
-            p_height: ['', Validators.required ],
-            p_weight: ['', Validators.required ]
+            p_breadth: ['',[Validators.required, this.numberValidator()] ],
+            p_height: ['', [Validators.required, this.numberValidator()] ],
+            p_weight: ['', [Validators.required, this.numberValidator()] ],
         });
 
         this.parselForm.valueChanges.subscribe(data => this.onValueChanged(data));
@@ -48,20 +48,34 @@ export class ParserComponent {
     }
 
     formErrors = {
-        'p_length': ''
+        'p_length': '',
+        'p_breadth': '',
+        'p_height': '',
+        'p_weight': '',
     };
 
     validationMessages = {
         'p_length': {
             'required':  'Length is required.',
-            'numberTest': 'WTF'
-        }
+            'numberTest': 'Enter a valid number'
+        },
+        'p_breadth': {
+            'required':  'Breadth is required.',
+            'numberTest': 'Enter a valid number'
+        },
+        'p_height': {
+            'required':  'Height is required.',
+            'numberTest': 'Enter a valid number'
+        },
+        'p_weight': {
+            'required':  'Weight is required.',
+            'numberTest': 'Enter a valid number'
+        },
     }
 
     numberValidator(): ValidatorFn {
         return (control: AbstractControl): {[key: string]: any} => {
             const number = control.value;
-            console.log(number);
             return (isNaN(number) || null) ? {'numberTest': {number}} : null;
         };
     }

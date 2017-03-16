@@ -7,4 +7,9 @@ export class Parcel {
         public weight?: number
     ) {}
 
+
+    getCubicMetre() {
+        return (this.length/1000)*(this.breadth/1000)*(this.height/1000)
+    }
+
 }

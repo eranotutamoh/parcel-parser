@@ -1,19 +1,19 @@
 <form  (ngSubmit)="onSubmit()" [formGroup]="parselForm" novalidate action="" method="post"   >
     <h2>{{title}}</h2>
     <label>Length (mm)</label>
-    <input type="text" min="1" formControlName="p_length" >
+    <input type="number" min="1" formControlName="p_length" >
+    <p *ngIf="formErrors.p_length" >{{ formErrors.p_length }}</p>
     <label>Breadth (mm)</label>
     <input type="number" min="1" formControlName="p_breadth" >
+    <p *ngIf="formErrors.p_breadth" >{{ formErrors.p_breadth }}</p>
     <label>Height (mm)</label>
     <input type="number" min="1" formControlName="p_height" >
+    <p *ngIf="formErrors.p_height" >{{ formErrors.p_height }}</p>
     <label>Weight (kg)</label>
     <input type="number" min=".001" formControlName="p_weight" >
+    <p *ngIf="formErrors.p_weight" >{{ formErrors.p_weight }}</p>
     <button type="submit" [disabled]='!parselForm.valid'  >Submit</button>
 
-
-    <div *ngIf="formErrors.p_length" >
-        {{ formErrors.p_length }}
-    </div>
 
 
     <p *ngIf="freightInfo">{{freightInfo.msg}} <span *ngIf="freightInfo.cost"> - ${{freightInfo.cost}}</span>  </p>
